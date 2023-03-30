@@ -3,6 +3,8 @@ package com.example.backend.controllers;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import com.example.backend.models.artists;
 import com.example.backend.models.countries;
 import com.example.backend.repositories.CountryRepository;
 import org.springframework.web.server.ResponseStatusException;
@@ -22,10 +24,18 @@ public class CountryController {
     }
 
     @GetMapping("/countries")
-    public List<countries>
-    getAllCountries() {
+    public List<countries> getAllCountries() {
         return (List<countries>) countryRepository.findAll();
     }
+
+
+    @GetMapping("/countries/{id}/artists")
+    public ResponseEntity<List<artists>> getCountryArtists(@PathVariable(value = "id") Long country_id) {
+        Optional<countries> cc = countryRepository.findById(country_id);
+        if (cc.isEmpty()) { return ResponseEntity.ok(new ArrayList<>()); }
+        return ResponseEntity.ok(cc.get().artists);
+    }
+
 
     @PostMapping("/countries")
     public ResponseEntity<Object> createCountry(@RequestBody countries country) {
@@ -36,9 +46,7 @@ public class CountryController {
         }
 
         // Проверяем, существует ли уже запись с таким именем
-        Optional<countries> existingCountry = countryRepository.findByName(country.getName());
-        if (existingCountry.isPresent()) {
-            System.out.println(existingCountry);
+        if (countryRepository.findByName(country.getName()).isPresent()) {
             return new ResponseEntity<>("this country already exists", HttpStatus.BAD_REQUEST);
         }
 
@@ -69,7 +77,7 @@ public class CountryController {
     }
 
     @DeleteMapping("/countries/{id}")
-    public ResponseEntity<Object> deleteCountry(@PathVariable(value = "id") Long countryId) {
+    public ResponseEntity<String> deleteCountry(@PathVariable(value = "id") Long countryId) {
         Optional<countries> countryToDelete  = countryRepository.findById(countryId);
         if (countryToDelete.isEmpty()) {
             return new ResponseEntity<>("Deletion failed", HttpStatus.OK);
