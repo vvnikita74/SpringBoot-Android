@@ -22,9 +22,9 @@ public class CountryController {
     }
 
     @GetMapping("/countries")
-    public List
+    public List<countries>
     getAllCountries() {
-        return (List) countryRepository.findAll();
+        return (List<countries>) countryRepository.findAll();
     }
 
     @PostMapping("/countries")
