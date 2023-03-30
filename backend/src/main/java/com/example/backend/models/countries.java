@@ -1,5 +1,10 @@
 package com.example.backend.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 
@@ -25,5 +30,9 @@ public class countries {
     public String getName() {
         return this.name;
     }
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "country")
+    public List<artists> artists = new ArrayList<>();
 
 }
