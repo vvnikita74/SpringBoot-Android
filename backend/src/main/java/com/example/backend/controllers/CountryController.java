@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import com.example.backend.models.artists;
 import com.example.backend.models.countries;
 import com.example.backend.repositories.CountryRepository;
-import org.springframework.web.server.ResponseStatusException;
 
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.*;
 
