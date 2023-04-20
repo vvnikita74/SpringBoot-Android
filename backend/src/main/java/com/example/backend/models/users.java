@@ -39,7 +39,6 @@ public class users {
     @Column(name = "salt")
     public String salt;
 
-    @JsonIgnore
     @Column(name = "token")
     public String token;
 
