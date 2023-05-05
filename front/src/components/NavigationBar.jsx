@@ -11,6 +11,11 @@ class NavigationBarClass extends React.Component {
 
     constructor(props) {
         super(props);
+        this.logout = this.logout.bind(this)
+    }
+
+    goHome() {
+        this.props.navigate('/home');
     }
 
     logout() {
