@@ -5,6 +5,8 @@ import { faHome, faUser } from '@fortawesome/free-solid-svg-icons'
 import { useNavigate, Link } from 'react-router-dom';
 import BackendService from '../services/BackendService';
 import Utils from '../utils/Utils';
+import { userActions } from '../utils/Rdx';
+import { connect } from 'react-redux';
 import './NavbarStyle.css'
 
 class NavigationBarClass extends React.Component {
@@ -14,6 +16,7 @@ class NavigationBarClass extends React.Component {
         this.logout = this.logout.bind(this)
     }
 
+    
     goHome() {
         this.props.navigate('/home');
     }
@@ -21,7 +24,8 @@ class NavigationBarClass extends React.Component {
     logout() {
         BackendService.logout().then(() => {
             Utils.removeUser();
-            this.goHome()
+            this.props.dispatch(userActions.logout());
+            this.props.navigate("/login");
         });
     }
 
@@ -35,13 +39,18 @@ class NavigationBarClass extends React.Component {
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/home">Главная</Nav.Link>
                     </Nav>
-                        <Navbar.Text className='me-2'>{uname}</Navbar.Text>
-                        { uname && <Nav.Link className="me-2" onClick={this.logout}><FontAwesomeIcon icon={faUser} fixedWidth />{' '}Выход</Nav.Link>}
-                        { !uname && <Nav.Link className="me-2" as={Link} to="/login"><FontAwesomeIcon icon={faUser} fixedWidth />{' '}Вход</Nav.Link>}
+                    <Navbar.Text>{this.props.user && this.props.user.login}</Navbar.Text>
+                    { this.props.user && <Nav.Link onClick={this.logout}><FontAwesomeIcon icon={faUser} fixedWidth />{' '}Выход</Nav.Link>}
+                    { !this.props.user && <Nav.Link as={Link} to="/login"><FontAwesomeIcon icon={faUser} fixedWidth />{' '}Вход</Nav.Link>}
                 </Navbar.Collapse>
             </Navbar>
         );
     }
+}
+
+const mapStateToProps = state => {
+    const { user } = state.authentication;
+    return { user };
 }
 
 const NavigationBar = props => {
@@ -49,4 +58,4 @@ const NavigationBar = props => {
     return <NavigationBarClass navigate={navigate} {...props} />
 }
 
-export default  NavigationBar;
+export default  connect(mapStateToProps)(NavigationBar);
