@@ -45,7 +45,7 @@ public class CountryController {
         return ResponseEntity.ok(cc.get().artists);
     }
 
-
+    
     @PostMapping("/countries")
     public ResponseEntity<Object> createCountry(@Valid @RequestBody countries country) throws DataValidationException {
         try {
@@ -60,8 +60,10 @@ public class CountryController {
         }
     }
 
+    
     @PutMapping("/countries/{id}")
-    public ResponseEntity<Object> updateCountry(@PathVariable(value = "id") Long countryId, @Valid @RequestBody countries countryDetails) throws DataValidationException {
+    public ResponseEntity<Object> updateCountry(@PathVariable(value = "id") Long countryId, @RequestBody countries countryDetails) throws DataValidationException {
+        System.out.println("ЗАШЕЛ");
         try {
             countries country = countryRepository.findById(countryId)
                 .orElseThrow(() -> new DataValidationException("Страна с таким индексом не найдена"));

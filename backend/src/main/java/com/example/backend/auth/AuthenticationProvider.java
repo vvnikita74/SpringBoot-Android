@@ -61,7 +61,7 @@ public class AuthenticationProvider extends AbstractUserDetailsAuthenticationPro
                         true,
                         true,
                         true,
-                        AuthorityUtils.createAuthorityList("USER"));
+                        AuthorityUtils.createAuthorityList("ADMIN"));
         return user;
     }
 }
