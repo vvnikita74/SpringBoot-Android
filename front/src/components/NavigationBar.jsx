@@ -41,6 +41,7 @@ class NavigationBarClass extends React.Component {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link as={Link} to="/home">Главная</Nav.Link>
+                        <Nav.Link as={Link} to="/account">{this.props.user && this.props.user.login}</Nav.Link>
                     </Nav>
                     <Navbar.Text>{this.props.user && this.props.user.login}</Navbar.Text>
                     { this.props.user && <Nav.Link onClick={this.logout}><FontAwesomeIcon icon={faUser} fixedWidth />{' '}Выход</Nav.Link>}

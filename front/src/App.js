@@ -9,6 +9,10 @@ import { connect } from 'react-redux';
 import SideBar from './components/SideBar';
 import CountryListComponent from './components/CountryListComponent';
 import CountryComponent from './components/CountryComponent';
+import ArtistListComponent from './components/ArtistListComponent';
+import ArtistComponent from './components/ArtistComponent';
+import UsersListComponent from './components/UserListComponent';
+import AccountComponent from './components/AccountComponent';
 
 const ProtectedRoute = ({children}) => {
     let user = Utils.getUser();
@@ -29,8 +33,12 @@ function App(props) {
                             <Routes>
                                 <Route path="login" element={<Login />}/>
                                 <Route path="home" element={<ProtectedRoute><Home/></ProtectedRoute>}/>
+                                <Route path="users" element={<ProtectedRoute><UsersListComponent/></ProtectedRoute>}/>
+                                <Route path="account" element={<ProtectedRoute><AccountComponent/></ProtectedRoute>}/>
                                 <Route path="countries" element={<ProtectedRoute><CountryListComponent/></ProtectedRoute>}/>
                                 <Route path="countries/:id" element={<ProtectedRoute><CountryComponent /></ProtectedRoute>}/>
+                                <Route path="artists" element={<ProtectedRoute><ArtistListComponent/></ProtectedRoute>}/>
+                                <Route path="artists/:id" element={<ProtectedRoute><ArtistComponent /></ProtectedRoute>}/>
                             </Routes>
                         </div>
                     </div>

@@ -5,42 +5,42 @@ import Alert from './Alert';
 import BackendService from '../services/BackendService';
 import { useParams, useNavigate } from 'react-router-dom';
 
-const CountryComponent = () => {
+const ArtistComponent = () => {
   const { id } = useParams(); // Получаем параметр id из URL
   const navigate = useNavigate();
 
-  const [country, setCountry] = useState({});
+  const [artist, setArtist] = useState({});
   const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
-    retrieveCountry();
+    retrieveArtist();
   }, []);
 
-  const retrieveCountry = () => {
-    BackendService.retrieveCountry(id)
+  const retrieveArtist = () => {
+    BackendService.retrieveArtist(id)
       .then((resp) => {
-        setCountry(resp.data);
+        setArtist(resp.data);
       })
       .catch((error) => {
-        console.error('Ошибка при получении данных страны:', error);
+        console.error('Ошибка при получении данных артиста:', error);
       });
   };
 
-  const updateCountry = () => {
-    BackendService.updateCountry(country)
+  const updateArtist = () => {
+    BackendService.updateArtist(artist)
       .then(() => {
-        navigate('/countries');
+        navigate('/artists');
       })
       .catch((error) => {
-        console.error('Ошибка при обновлении страны:', error);
+        console.error('Ошибка при обновлении артиста:', error);
         setShowAlert(true);
       });
   };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setCountry((prevCountry) => ({
-      ...prevCountry,
+    setArtist((prevArtist) => ({
+      ...prevArtist,
       [name]: value,
     }));
   };
@@ -51,15 +51,26 @@ const CountryComponent = () => {
 
   return (
     <div className="m-4">
-      <h3>Страна: {country.name}</h3>
+      <h3>Артист: {artist.name}</h3>
       <div className="row my-2">
         <div className="col">
-          <label htmlFor="name">Название страны:</label>
+          <label htmlFor="name">Имя артиста:</label>
           <input
             type="text"
             id="name"
             name="name"
-            value={country.name || ''}
+            value={artist.name || ''}
+            onChange={handleInputChange}
+            className="form-control"
+          />
+        </div>
+        <div className="col">
+          <label htmlFor="name">Возраст артиста:</label>
+          <input
+            type="number"
+            id="age"
+            name="age"
+            value={artist.age || ''}
             onChange={handleInputChange}
             className="form-control"
           />
@@ -67,14 +78,14 @@ const CountryComponent = () => {
       </div>
       <div className="row my-2">
         <div className="col">
-          <button className="btn btn-primary" onClick={updateCountry}>
+          <button className="btn btn-primary" onClick={updateArtist}>
             <FontAwesomeIcon icon={faSave} /> Сохранить
           </button>
         </div>
       </div>
       <Alert
         title="Ошибка"
-        message="Произошла ошибка при обновлении страны."
+        message="Произошла ошибка при обновлении артиста."
         ok={closeAlert}
         close={closeAlert}
         modal={showAlert}
@@ -83,4 +94,4 @@ const CountryComponent = () => {
   );
 };
 
-export default CountryComponent;
+export default ArtistComponent;

@@ -70,5 +70,8 @@ public class users {
         this.museums.remove(m);
         m.users.remove(this);
     }
+
+    @Transient
+    public String np;
     
 }

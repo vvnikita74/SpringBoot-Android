@@ -15,8 +15,8 @@ class BackendService {
         return axios.get(`${AUTH_URL}/logout`, {headers : {Authorization : Utils.getToken()}})
     }
 
-    retrieveAllCountries(countries) {
-        return axios.get('http://localhost:8080/api/countries', countries, {headers : {Authorization : Utils.getToken()}});
+    retrieveAllCountries(page, limit) {
+        return axios.get(`${API_URL}/countries?page=${page}&limit=${limit}`, {headers : {Authorization : Utils.getToken()}});
     }
     
     retrieveCountry(id) {
@@ -34,6 +34,47 @@ class BackendService {
     deleteCountries(countries) {
         return axios.post(`${API_URL}/deletecountries`, countries, {headers : {Authorization : Utils.getToken()}});
     }
+
+    retrieveAllArtists(artist) {
+        return axios.get(`${API_URL}/artists`, artist, {headers : {Authorization : Utils.getToken()}});
+    }
+    
+    retrieveArtist(id) {
+        return axios.get(`${API_URL}/artists/${id}`, {headers : {Authorization : Utils.getToken()}});
+    }
+    
+    createArtist(artist) {
+        return axios.post(`${API_URL}/artists`, artist, {headers : {Authorization : Utils.getToken()}});
+    }
+    
+    updateArtist(artist) {
+        return axios.put(`${API_URL}/artists/${artist.id}`, artist, {headers : {Authorization : Utils.getToken()}});
+    }
+    
+    deleteArtists(artists) {
+        return axios.post(`${API_URL}/deletecountries`, artists, {headers : {Authorization : Utils.getToken()}});
+    }
+
+    retrieveAllUsers(page, limit) {
+        return axios.get(`${API_URL}/users?page=${page}&limit=${limit}`);
+    }
+
+    retrieveUser(id) {
+        return axios.get(`${API_URL}/users/${id}`);
+    }
+
+    createUser(user) {
+        return axios.post(`${API_URL}/users`, user);
+    }
+
+    updateUser(user) {
+        return axios.put(`${API_URL}/users/${user.id}`, user);
+    }
+
+    deleteUsers(users) {
+        return axios.post(`${API_URL}/deleteusers`, users);
+    }
+
 
 }
 

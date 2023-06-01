@@ -1,5 +1,8 @@
 package com.example.backend.controllers;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,8 +29,8 @@ public class CountryController {
     }
 
     @GetMapping("/countries")
-    public List<countries> getAllCountries() {
-        return (List<countries>) countryRepository.findAll();
+    public Page <countries> getAllCountries(@RequestParam("page") int page, @RequestParam("limit") int limit) {
+        return countryRepository.findAll(PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "name")));
     }
     
     @GetMapping("/countries/{id}")
@@ -63,7 +66,6 @@ public class CountryController {
     
     @PutMapping("/countries/{id}")
     public ResponseEntity<Object> updateCountry(@PathVariable(value = "id") Long countryId, @RequestBody countries countryDetails) throws DataValidationException {
-        System.out.println("ЗАШЕЛ");
         try {
             countries country = countryRepository.findById(countryId)
                 .orElseThrow(() -> new DataValidationException("Страна с таким индексом не найдена"));
