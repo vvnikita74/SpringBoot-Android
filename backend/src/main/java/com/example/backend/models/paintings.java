@@ -17,6 +17,9 @@ public class paintings {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", nullable = false, updatable = false)
     public Long id;
+
+    @Column(name = "name", nullable = false)
+    public String name;
     
 }
 

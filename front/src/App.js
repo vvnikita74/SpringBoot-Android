@@ -13,6 +13,10 @@ import ArtistListComponent from './components/ArtistListComponent';
 import ArtistComponent from './components/ArtistComponent';
 import UsersListComponent from './components/UserListComponent';
 import AccountComponent from './components/AccountComponent';
+import MuseumComponent from './components/MuseumComponent';
+import MuseumListComponent from './components/MuseumListComponent';
+import PaintsListComponent from './components/PaintsListComponent';
+import PaintsComponent from './components/PaintsComponent';
 
 const ProtectedRoute = ({children}) => {
     let user = Utils.getUser();
@@ -37,6 +41,10 @@ function App(props) {
                                 <Route path="account" element={<ProtectedRoute><AccountComponent/></ProtectedRoute>}/>
                                 <Route path="countries" element={<ProtectedRoute><CountryListComponent/></ProtectedRoute>}/>
                                 <Route path="countries/:id" element={<ProtectedRoute><CountryComponent /></ProtectedRoute>}/>
+                                <Route path="paints" element={<ProtectedRoute><PaintsListComponent/></ProtectedRoute>}/>
+                                <Route path="paints/:id" element={<ProtectedRoute><PaintsComponent /></ProtectedRoute>}/>
+                                <Route path="museums" element={<ProtectedRoute><MuseumListComponent/></ProtectedRoute>}/>
+                                <Route path="museums/:id" element={<ProtectedRoute><MuseumComponent /></ProtectedRoute>}/>
                                 <Route path="artists" element={<ProtectedRoute><ArtistListComponent/></ProtectedRoute>}/>
                                 <Route path="artists/:id" element={<ProtectedRoute><ArtistComponent /></ProtectedRoute>}/>
                             </Routes>

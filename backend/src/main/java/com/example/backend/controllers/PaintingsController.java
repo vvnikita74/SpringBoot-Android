@@ -1,8 +1,8 @@
 package com.example.backend.controllers;
 
-import com.example.backend.repositories.MuseumRepository;
-import com.example.backend.models.museums;
 
+import com.example.backend.models.paintings;
+import com.example.backend.repositories.PaintingRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,16 +18,16 @@ import java.util.*;
 @CrossOrigin
 @RestController
 @RequestMapping("/api")
-public class MuseumController {
+public class PaintingsController {
 
     @Autowired
-    MuseumRepository museumRepository;
+    PaintingRepository museumRepository;
 
-    @PostMapping("/museums")
-    public ResponseEntity<Object> createMuseum(@RequestBody museums museum)
+    @PostMapping("/paints")
+    public ResponseEntity<Object> createMuseum(@RequestBody paintings paint)
             throws Exception {
         try {
-            museums nc = museumRepository.save(museum);
+            paintings nc = museumRepository.save(paint);
             System.out.println(nc.name);
             return new ResponseEntity<Object>(nc, HttpStatus.OK);
         } catch (Exception ex) {
@@ -43,26 +43,26 @@ public class MuseumController {
         }
     }
 
-    @GetMapping("/museums")
-    public Page<museums> getAllMuseums(@RequestParam("page") int page, @RequestParam("limit") int limit) {
+    @GetMapping("/paints")
+    public Page<paintings> getAllPaints(@RequestParam("page") int page, @RequestParam("limit") int limit) {
         return museumRepository.findAll(PageRequest.of(page, limit, Sort.by(Sort.Direction.ASC, "name")));
     }
 
-    @PostMapping("/deletemuseums")
-    public ResponseEntity<HttpStatus> deleteMuseums(@RequestBody List<museums> museums) {
+    @PostMapping("/deletepaints")
+    public ResponseEntity<HttpStatus> deletePaints(@RequestBody List<paintings> paints) {
         List<Long> listOfIds = new ArrayList<>();
-        for (museums artist: museums){
+        for (paintings artist: paints){
             listOfIds.add(artist.id);
         }
         museumRepository.deleteAllById(listOfIds);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @PutMapping("/museums/{id}")
-    public ResponseEntity<museums> updateMuseum(@PathVariable(value = "id") Long museumId,
-                                               @RequestBody museums museum) {
-        museums mus = null;
-        Optional<museums> cc = museumRepository.findById(museumId);
+    @PutMapping("/paints/{id}")
+    public ResponseEntity<paintings> updatePaints(@PathVariable(value = "id") Long museumId,
+                                               @RequestBody paintings museum) {
+        paintings mus = null;
+        Optional<paintings> cc = museumRepository.findById(museumId);
         if (cc.isPresent()) {
             mus = cc.get();
             mus.name = museum.name;

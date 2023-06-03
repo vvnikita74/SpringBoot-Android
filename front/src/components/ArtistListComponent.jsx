@@ -115,6 +115,7 @@ const ArtistListComponent = props => {
                         <tr>
                             <th>Название</th>
                             <th>Возраст</th>
+                            <th>Страна</th>
                             <th>
                                 <div className="btn-toolbar pb-1">
                                     <div className="btn-group  ms-auto">
@@ -130,6 +131,7 @@ const ArtistListComponent = props => {
                             <tr key={artist.id}>
                                 <td>{artist.name}</td>
                                 <td>{artist.age}</td>
+                                <td>{artist.country.name}</td>
                                 <td>
                                     <div className="btn-toolbar">
                                         <div className="btn-group  ms-auto">

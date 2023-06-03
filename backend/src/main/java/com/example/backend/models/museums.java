@@ -28,15 +28,6 @@ public class museums {
     @Column(name = "location")
     public String location;
 
-    /*
-
-    @JsonIgnore
-    @OneToMany
-    public List<paintings>
-    paintings = new ArrayList<>(); 
-
-    */
-
     @JsonIgnore
     @ManyToMany
     @JoinTable(name = "users_museums", joinColumns = @JoinColumn(name = "museum_id"),
